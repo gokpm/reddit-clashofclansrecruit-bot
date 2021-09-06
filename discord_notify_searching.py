@@ -1,11 +1,9 @@
-title = '''
-Title:              Report of players searching for clans in Reddit
-Date Created:       01-09-2021
-Date Last Modified: 05-09-2021
-Modification:       GitHub Ready
-Created by:         Gokul PM a.k.a icemelting
 '''
-print(title)
+Version:            0.1
+Date last modified: 07-09-2021
+Modified by:        icemelting
+Contributed by:     icemelting
+'''
 
 import praw
 from discord_webhook import DiscordWebhook, DiscordEmbed
