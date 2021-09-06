@@ -1,10 +1,9 @@
-title = '''
-Title:              Scout Report
-Date Created:       01-09-2021
-Date Last Modified: 06-09-2021
-Modified by:        Gokul PM
 '''
-print(title)
+Version:            0.2
+Date last modified: 07-09-2021
+Modified by:        icemelting
+Contributed by:     icemelting
+'''
 
 import praw
 from discord_webhook import DiscordWebhook, DiscordEmbed
