@@ -30,11 +30,13 @@ def execWebhook(embed_title, embed_description, embed_color, embed_url):
     
 async def autoComment():
     th = ['th12', 'th13', 'th14']
+    await initReddit()
     comment = readComment()
     latest_post_time = readCache()
+    execWebhook("Bot is Back Online!", '', '800020', '')
     while True:
         posts = await fetchPosts('clashofclansrecruit', 250)
-        await asyncio.sleep(1000)
+        await asyncio.sleep(1)
         for post in posts:
             if post.created_utc > latest_post_time:
                 post_content = post.title + ' ' + post.selftext
@@ -45,17 +47,19 @@ async def autoComment():
                     execWebhook(post.title, post.selftext, '800020', post.url)
                     await post.reply(comment)
                     execWebhook('Replied', '', '00FFFF', post.url)
-                    await asyncio.sleep(1000)
+                    await asyncio.sleep(1)
 
 
 async def fetchPosts(subreddit, limit):
+    global reddit
     sub = await reddit.subreddit(subreddit)
     posts = [post async for post in sub.new(limit = limit)]
     posts.reverse()
     return posts
 
 if __name__ == '__main__':
-    asyncio.run(autoComment())
+    loop = asyncio.get_event_loop()
+    result = loop.run_until_complete(autoComment())
     
     
     
