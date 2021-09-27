@@ -47,7 +47,7 @@ async def autoComment():
                     execWebhook(post.title, post.selftext, '800020', post.url)
                     await post.reply(comment)
                     execWebhook('Replied', '', '00FFFF', post.url)
-                    await asyncio.sleep(1)
+                    await asyncio.sleep(1000)
 
 
 async def fetchPosts(subreddit, limit):
