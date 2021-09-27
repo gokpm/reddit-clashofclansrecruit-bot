@@ -9,18 +9,18 @@ from readWrite import *
 load_dotenv()
 genCache()
 
+global reddit
+
 async def initReddit():
+    global reddit
     reddit = asyncpraw.Reddit(
-    client_id=os.environ['REDDIT_CLIENT_ID'],
-    client_secret=os.environ['REDDIT_CLIENT_SECRET'],
-    user_agent=os.environ['REDDIT_USER_AGENT'],
-    username=os.environ['REDDIT_USERNAME'],
-    password=os.environ['REDDIT_PASSWORD'])
+        client_id=os.environ['REDDIT_CLIENT_ID'],
+        client_secret=os.environ['REDDIT_CLIENT_SECRET'],
+        user_agent=os.environ['REDDIT_USER_AGENT'],
+        username=os.environ['REDDIT_USERNAME'],
+        password=os.environ['REDDIT_PASSWORD']
+    )
     reddit.read_only = False
-    sub = await reddit.subreddit('clashofclansrecruit')
-    posts = [post async for post in sub.new(limit = 250)]
-    posts.reverse()
-    return posts
 
 def execWebhook(embed_title, embed_description, embed_color, embed_url):
     webhook = DiscordWebhook(url=os.environ['WEBHOOK'])
@@ -30,10 +30,12 @@ def execWebhook(embed_title, embed_description, embed_color, embed_url):
     
 async def autoComment():
     th = ['th12', 'th13', 'th14']
-    posts = await initReddit()
+    await initReddit()
     comment = readComment()
     latest_post_time = readCache()
+    execWebhook("Bot is Back Online!", '', '800020', '')
     while True:
+        posts = await fetchPosts('clashofclansrecruit', 250)
         for post in posts:
             if post.created_utc > latest_post_time:
                 post_content = post.title + ' ' + post.selftext
@@ -46,8 +48,16 @@ async def autoComment():
                     execWebhook('Replied', '', '00FFFF', post.url)
                     await asyncio.sleep(1000)
 
+
+async def fetchPosts(subreddit, limit):
+    sub = await reddit.subreddit(subreddit)
+    posts = [post async for post in sub.new(limit = limit)]
+    posts.reverse()
+    return posts
+
 if __name__ == '__main__':
-    asyncio.run(autoComment())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(autoComment())
     
     
     
