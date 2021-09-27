@@ -36,7 +36,6 @@ async def autoComment():
     execWebhook("Bot is Back Online!", '', '800020', '')
     while True:
         posts = await fetchPosts('clashofclansrecruit', 250)
-        await asyncio.sleep(1)
         for post in posts:
             if post.created_utc > latest_post_time:
                 post_content = post.title + ' ' + post.selftext
