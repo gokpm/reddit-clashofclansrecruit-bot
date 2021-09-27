@@ -57,7 +57,7 @@ async def fetchPosts(subreddit, limit):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    result = loop.run_until_complete(autoComment())
+    loop.run_until_complete(autoComment())
     
     
     
