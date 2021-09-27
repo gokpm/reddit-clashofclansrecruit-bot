@@ -50,7 +50,6 @@ async def autoComment():
 
 
 async def fetchPosts(subreddit, limit):
-    global reddit
     sub = await reddit.subreddit(subreddit)
     posts = [post async for post in sub.new(limit = limit)]
     posts.reverse()
