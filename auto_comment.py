@@ -9,8 +9,6 @@ from readWrite import *
 load_dotenv()
 genCache()
 
-global reddit
-
 async def initReddit():
     global reddit
     reddit = asyncpraw.Reddit(
@@ -33,7 +31,7 @@ async def autoComment():
     await initReddit()
     comment = readComment()
     latest_post_time = readCache()
-    execWebhook("Bot is Back Online!", '', '800020', '')
+    #execWebhook("Bot is Back Online!", '', '800020', '')
     while True:
         posts = await fetchPosts('clashofclansrecruit', 250)
         for post in posts:
@@ -46,8 +44,6 @@ async def autoComment():
                     execWebhook(post.title, post.selftext, '800020', post.url)
                     await post.reply(comment)
                     execWebhook('Replied', '', '00FFFF', post.url)
-                    await asyncio.sleep(1000)
-
 
 async def fetchPosts(subreddit, limit):
     while True:
