@@ -31,7 +31,7 @@ async def autoComment():
     await initReddit()
     comment = readComment()
     latest_post_time = readCache()
-    #execWebhook("Bot is Back Online!", '', '800020', '')
+    execWebhook("Bot is Back Online!", '', '800020', '')
     while True:
         posts = await fetchPosts('clashofclansrecruit', 250)
         for post in posts:
