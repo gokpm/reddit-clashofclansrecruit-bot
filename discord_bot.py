@@ -1,10 +1,3 @@
-'''
-Version:            0.2
-Date last modified: 07-09-2021
-Modified by:        icemelting
-Contributed by:     icemelting
-'''
-
 import praw
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import time
